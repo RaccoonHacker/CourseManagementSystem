@@ -34,3 +34,9 @@ python manage.py migrate
 python manage.py runserver
 ```
 访问 http://127.0.0.1:8000 即可预览效果。
+
+## 预览
+视频链接：https://www.bilibili.com/video/BV1xrcMznEck/?share_source=copy_web&vd_source=83481e9465cd9f75fa1a4a17e7d3e3a4
+
+<img width="1706" height="944" alt="首页" src="https://github.com/user-attachments/assets/388b9a32-fdd7-4e98-939e-4738c5ccd164" />
+<img width="1706" height="944" alt="在线课程" src="https://github.com/user-attachments/assets/933a565c-2e2c-4e7e-9364-adae72a49724" />
