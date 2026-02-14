@@ -13,8 +13,8 @@
 
 1. 克隆项目
 ```
-git clone https://github.com/你的用户名/你的项目名.git
-cd 你的项目名
+git clone https://github.com/RaccoonHacker/CourseManagementSystem.git
+cd CourseManagementSystem
 ```
 2. 环境配置
 建议使用虚拟环境
