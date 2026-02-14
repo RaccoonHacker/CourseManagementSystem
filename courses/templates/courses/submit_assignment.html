@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid ps-lg-5 pe-lg-4 pb-5">
+
+    <div class="row mb-5">
+        <div class="col">
+            <h2 class="fw-bold text-dark display-6">
+                <i class="bi bi-cloud-upload-fill me-2"></i>作业提交
+            </h2>
+            <div class="bg-dark mb-2" style="height: 2px; width: 60px;"></div>
+            <p class="text-muted small mb-0 text-uppercase" style="letter-spacing: 2px;">
+                正在建立作业提交通道...
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm tech-card overflow-hidden">
+                <div class="card-header bg-dark text-white p-4 d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="bi bi-file-earmark-text me-2"></i>{{ assignment.title }}
+                    </h4>
+                    <span class="badge bg-secondary opacity-75">TASK-ID: {{ assignment.id }}</span>
+                </div>
+
+                <div class="card-body p-4 p-lg-5">
+                    <div class="mb-5">
+                        <h6 class="text-uppercase fw-bold text-muted small mb-3" style="letter-spacing: 2px;">
+                            <i class="bi bi-info-square me-1"></i> 作业详情/Details
+                        </h6>
+                        <div class="p-4 rounded-3 bg-light border-start border-4 border-dark">
+                            <p class="mb-0 text-dark lead fs-6" style="line-height: 1.8;">
+                                {{ assignment.content|linebreaks }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark mb-3">
+                                <i class="bi bi-terminal-fill me-1"></i> 你的答案 / YOUR ANSWER
+                            </label>
+                            <textarea name="answer"
+                                      class="form-control matrix-textarea p-4"
+                                      rows="12"
+                                      placeholder="请输入作业内容或代码段..."
+                                      required>{{ submission.answer }}</textarea>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-dark w-100 fw-bold py-3 shadow-sm">
+                                    <i class="bi bi-send-check me-2"></i> 上传数据并锁定提交 (COMMIT)
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'assignment_list' %}" class="btn btn-outline-dark w-100 py-3 fw-bold">
+                                    取消并退出
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer bg-light border-0 py-3 text-center">
+                    <small class="text-muted small text-uppercase" style="letter-spacing: 1px;">
+                        <i class="bi bi-shield-lock me-1"></i> 加密数据传输模式已开启
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 核心样式：延续 Matrix 风格 */
+    .tech-card {
+        background: #ffffff;
+        border-radius: 20px;
+    }
+
+    /* 输入框科技感优化 */
+    .matrix-textarea {
+        border: 2px solid #f0f0f0;
+        border-radius: 12px;
+        background-color: #fcfcfc;
+        font-family: 'Fira Code', 'Consolas', monospace; /* 使用等宽字体更有代码感 */
+        transition: all 0.3s ease;
+        resize: none;
+    }
+
+    .matrix-textarea:focus {
+        background-color: #fff;
+        border-color: #000;
+        box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        outline: none;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 992px) {
+        .ps-lg-5 {
+            padding-left: 1.5rem !important;
+        }
+    }
+</style>
+{% endblock %}
