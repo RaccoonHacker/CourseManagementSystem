@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>在线课程管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            /* 使用 Django 的 static 标签引用图片 */
+            background: url("{% static 'images/bg.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* 导航栏外层容器：实现居中浮动 */
+        .navbar-container {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        /* 导航栏主体：磨砂玻璃风格 */
+        /* 导航栏主体：加长并优化 */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.25) !important;
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            width: 95%; /* 宽度增加到 95% */
+            max-width: 1600px; /* 最大宽度从 1100px 增加到 1600px */
+            padding: 8px 30px !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* 调整文字间距，防止功能多了太拥挤 */
+        .navbar-custom .nav-link {
+            color: #000 !important;
+            font-weight: 500; /* 加粗字体 */
+            margin: 0 12px; /* 增加左右间距 */
+            font-size: 0.9rem; /* 稍微缩小字号以容纳更多功能 */
+            white-space: nowrap; /* 防止文字换行 */
+        }
+
+        /* 悬停效果 */
+        .navbar-custom .nav-link:hover {
+            color: #555 !important;
+            transform: translateY(-1px);
+        }
+
+        /* 品牌/Logo */
+        .navbar-brand {
+            font-weight: 500 !important;
+            color: #000 !important;
+            text-transform: uppercase;
+        }
+
+        /* 退出登录按钮样式（仿照图中的蓝色按钮） */
+        .btn-logout-custom {
+            background-color: #2b57f2 !important;
+            color: white !important;
+            border-radius: 20px !important;
+            padding: 6px 20px !important;
+            font-weight: bold;
+            border: none;
+            margin-left: 15px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="navbar-container">
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand me-4" href="{% url 'home' %}">学生选课系统</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'course_list' %}">在线课程</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'my_courses' %}">我的课表与退课</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'course_chat' %}">在线交流</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'assignment_list' %}">课程作业</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'my_scores' %}">分数查询</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/" target="_blank">后台管理</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    {% if user.is_authenticated %}
+                        <span class="me-2 text-dark d-none d-xl-inline">👋 你好, <strong>{{ user.username }}</strong></span>
+                        <a href="{% url 'logout' %}" class="btn btn-logout-custom">退出登录</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-logout-custom"
+                           style="background-color: #28a745 !important;">立即登录</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div style="margin-top: 100px;">
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

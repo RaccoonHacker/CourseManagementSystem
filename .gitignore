@@ -1,0 +1,26 @@
+# --- Python 缓存 ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- 虚拟环境 (最重要，千万别传) ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- 数据库 (本地测试数据不建议上传) ---
+*.sqlite3
+
+# --- 静态资源与上传媒体文件 ---
+# 如果你想让 README 的图片显示，请确保 docs/images 不在这里面
+media/
+staticfiles/
+
+# --- IDE 配置 (防止把你的 VS Code 设置传上去) ---
+.vscode/
+.idea/
+.DS_Store
+
+# --- 环境变量文件 ---
+.env

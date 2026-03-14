@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* 粒子数字感背景蒙版 */
+    .glass-panel {
+        background: rgba(0, 0, 0, 0.75); /* 深色透明 */
+        backdrop-filter: blur(12px);    /* 磨砂玻璃效果 */
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 英雄区：立体感文字 */
+    .hero-section {
+        padding: 100px 40px;
+        margin-bottom: 40px;
+        text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .display-4 {
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        background: linear-gradient(to bottom, #ffffff 0%, #a1a1a1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* 功能卡片：粒子边缘感 */
+    .feature-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        color: #000000;
+    }
+
+    .feature-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-15px) scale(1.02);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        background: rgba(89, 84, 74, 0.5);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 25px;
+        box-shadow: inset 0 0 15px rgba(255,255,255,0.1);
+    }
+
+    /* 按钮：高亮黑白 */
+    .btn-tech {
+        background: #fff;
+        color: #000;
+        border: none;
+        font-weight: bold;
+        letter-spacing: 2px;
+        transition: 0.3s;
+    }
+
+    .btn-tech:hover {
+        background: #000;
+        color: #fff;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    /* 底部统计栏 */
+    .stat-bar {
+        background: rgba(255, 255, 255, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #b33030;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="glass-panel hero-section text-center">
+        <h1 class="display-4 fw-bold mb-3">DATA · EVOLUTION</h1>
+        <h2 class="h4 text-light mb-4" style="letter-spacing: 8px;">智慧教育课程系统</h2>
+        <p class="lead mb-5 mx-auto" style="max-width: 700px; color: #ccc;">
+            打破传统教学边界，通过高效管理系统重新构建您的学术视野。
+        </p>
+        <div class="d-flex justify-content-center gap-4">
+            <a href="{% url 'course_list' %}" class="btn btn-tech btn-lg px-5">进入矩阵</a>
+            <a href="{% url 'my_courses' %}" class="btn btn-outline-light btn-lg px-5">个人终端</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 p-4">
+                <div class="icon-box" style="color: #ffffff;">01</div>
+                <h4 class="fw-bold">全量核心</h4>
+                <p style="color: #000000;">全站课程数据实时索引，支持秒级选课响应与逻辑校验。</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 p-4">
+                <div class="icon-box" style="color: #ffffff;">02</div>
+                <h4 class="fw-bold">作业交互</h4>
+                <p style="color: #000000;">作业提交与评分系统的无缝闭环，像粒子流一样传递学术反馈。</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 p-4">
+                <div class="icon-box" style="color: #ffffff;">03</div>
+                <h4 class="fw-bold">逻辑交流</h4>
+                <p style="color: #000000;">分布式课程讨论区，每一条评论都是思想的一次碰撞与对齐。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="glass-panel mt-4 p-5 stat-bar">
+        <div class="row text-center">
+            <div class="col-4">
+                <div class="text-uppercase small mb-2" style="color: #888;">Active Courses</div>
+                <h2 class="fw-bold">120 <span class="h6">PTS</span></h2>
+            </div>
+            <div class="col-4 border-start border-secondary">
+                <div class="text-uppercase small mb-2" style="color: #888;">Global Users</div>
+                <h2 class="fw-bold">3.5 <span class="h6">K</span></h2>
+            </div>
+            <div class="col-4 border-start border-secondary">
+                <div class="text-uppercase small mb-2" style="color: #888;">Success Rate</div>
+                <h2 class="fw-bold">98 <span class="h6">%</span></h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

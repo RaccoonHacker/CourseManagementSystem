@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid ps-lg-5 pe-lg-4 pb-5">
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <div class="card tech-detail-card shadow-sm mb-5 border-0">
+                <div class="card-header bg-dark text-white p-4 d-flex align-items-center justify-content-between">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="bi bi-terminal me-2"></i>{{ course.title }}
+                    </h3>
+                    <span class="badge bg-secondary opacity-75">MOD-ID: {{ course.id }}</span>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    <div class="mb-4">
+                        <h6 class="text-uppercase fw-bold text-muted small mb-3" style="letter-spacing: 2px;">
+                            <i class="bi bi-info-circle me-1"></i> 课程逻辑描述
+                        </h6>
+                        <div class="course-text-box p-3 border-start border-4 border-dark bg-light">
+                            <p class="mb-0 text-dark lead">{{ course.description|linebreaks }}</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center text-muted">
+                        <span class="me-4"><i class="bi bi-person-badge me-1"></i> 指令源：<strong>{{ course.teacher }}</strong></span>
+                        <span><i class="bi bi-clock me-1"></i> 系统状态：稳定运行</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header bg-light border-bottom-0 p-4">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        <i class="bi bi-chat-right-dots me-2"></i>课程交流 · LOGS
+                    </h5>
+                </div>
+                <div class="card-body p-4 pt-2">
+
+                    {% if user.is_authenticated %}
+                    <form method="post" class="mb-5 p-3 rounded-3 bg-light border">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <textarea name="comment_text" class="form-control border-0" id="commentInput" style="height: 100px; background: transparent;" placeholder="输入交流指令..."></textarea>
+                            <label for="commentInput">说点什么吧...</label>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-dark px-4 fw-bold shadow-sm">
+                                发送数据 <i class="bi bi-send ms-1"></i>
+                            </button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <div class="alert alert-secondary text-center py-4 mb-5 border-0">
+                        请 <a href="{% url 'login' %}" class="fw-bold text-dark text-decoration-none">登录系统</a> 后开启交流协议
+                    </div>
+                    {% endif %}
+
+                    <div class="comment-timeline ps-2">
+                        {% for comment in comments %}
+                        <div class="comment-item position-relative mb-4 ps-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-dark">
+                                    <i class="bi bi-person-fill me-1"></i> {{ comment.user.username }}
+                                </span>
+
+                                <div class="d-flex align-items-center">
+                                    <small class="text-muted me-3">{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+
+                                    {% if comment.user == request.user %}
+                                    <a href="{% url 'delete_comment' comment.id %}"
+                                       class="text-danger text-decoration-none small fw-bold"
+                                       onclick="return confirm('确认销毁该条数据记录？');">
+                                        <i class="bi bi-trash3"></i> [ 销毁 ]
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p class="mb-0 mt-2 p-3 bg-light rounded-3 border-start border-3 border-secondary text-dark">
+                                {{ comment.text }}
+                            </p>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-cloud-slash display-4 d-block mb-3 opacity-25"></i>
+                            <p class="text-muted small text-uppercase" style="letter-spacing: 2px;">无活跃数据流</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 mt-4 mt-lg-0">
+            <div class="card border-dark border-2 p-4 bg-white shadow-sm sticky-top" style="top: 2rem; z-index: 10;">
+                <h6 class="fw-bold text-uppercase small mb-4 text-muted" style="letter-spacing: 1px;">系统终端</h6>
+                <div class="mb-4 text-center">
+                    <div class="display-6 fw-bold mb-1 text-dark">STABLE</div>
+                    <div class="text-muted small text-uppercase">Matrix Status</div>
+                </div>
+                <hr class="my-4">
+                <div class="d-grid gap-3">
+                    <a href="{% url 'course_list' %}" class="btn btn-outline-dark btn-sm fw-bold">
+                        <i class="bi bi-arrow-left me-1"></i> 返回矩阵列表
+                    </a>
+                    <button class="btn btn-dark btn-sm fw-bold" onclick="window.print()">
+                        <i class="bi bi-printer me-1"></i> 导出报告 (PDF)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tech-detail-card { border-radius: 15px; overflow: hidden; }
+    .course-text-box { line-height: 1.8; }
+
+    /* 评论区左侧时间轴虚线 */
+    .comment-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 10px;
+        bottom: -25px;
+        width: 1px;
+        border-left: 2px dashed #dee2e6;
+    }
+
+    .comment-item:last-child::before { display: none; }
+
+    .comment-item::after {
+        content: '';
+        position: absolute;
+        left: -4px;
+        top: 8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #212529;
+    }
+
+    @media (max-width: 992px) {
+        .ps-lg-5 { padding-left: 1rem !important; }
+    }
+</style>
+{% endblock %}
