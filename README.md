@@ -10,13 +10,8 @@
 
 ## 📸 系统演示
 
-### 1. 首页与选课大厅
+### 首页与选课大厅
 系统首页采用响应式布局，支持多终端流畅访问。
-![首页截图](docs/images/home_index.png)
-
-### 2. 数据库设计 (E-R 图)
-系统底层的核心实体关系设计如下：
-![E-R关系图](docs/images/er_diagram.png)
 
 ---
 
@@ -44,3 +39,7 @@
 ```bash
 git clone [https://github.com/RaccoonHacker/CourseManagementSystem.git](https://github.com/RaccoonHacker/CourseManagementSystem.git)
 cd CourseManagementSystem
+```
+
+![home截图](/static/images/home.png)
+![first截图](/static/images/first.png)
