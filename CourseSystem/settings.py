@@ -76,12 +76,8 @@ WSGI_APPLICATION = 'CourseSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'course_db',        # 数据库名，我们一会儿去创建
-        'USER': 'root',             # 你的 MySQL 用户名
-        'PASSWORD': '123456789',      # 你安装时设置的密码
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
